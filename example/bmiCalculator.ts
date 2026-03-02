@@ -16,7 +16,7 @@ const parseBmiArguments = (args: string[]): BmiInput => {
         throw new Error('Provided values were not numbers!');
     }
 }
-const calculateBmi = (height: number, weight: number): String => {
+export const calculateBmi = (height: number, weight: number): String => {
     height = height / 100
     const bmi = weight / (height * height)
     if (bmi < 16) {
@@ -41,13 +41,17 @@ const calculateBmi = (height: number, weight: number): String => {
 }
 
 
-try {
-    const {height, weight} = parseBmiArguments(process.argv);
-    console.log(calculateBmi(height, weight));
-} catch (error: unknown) {
-    let errorMessage = 'Something bad happened.'
-    if (error instanceof Error) {
-        errorMessage += ' Error: ' + error.message;
+const cliOp = () => {
+    try {
+        const {height, weight} = parseBmiArguments(process.argv);
+        console.log(calculateBmi(height, weight));
+    } catch (error: unknown) {
+        let errorMessage = 'Something bad happened.'
+        if (error instanceof Error) {
+            errorMessage += ' Error: ' + error.message;
+        }
+        console.log(errorMessage);
     }
-    console.log(errorMessage);
 }
+
+export default cliOp
