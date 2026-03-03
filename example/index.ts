@@ -18,7 +18,23 @@ app.get('/hello', (_req, res) => {
 
 app.get('/bmi', (req, res) => {
 
-    //TODO: check if height and weight exist and are numbers... otherwise return errors
+    if (!req.query.weight) {
+        res.status(400).send({error: 'malformatted parameters: weight missing'});
+        return;
+    }
+    if (isNaN(Number(req.query.weight))) {
+        res.status(400).send({error: 'malformatted parameters: weight must be a number'});
+        return;
+    }
+    if (!req.query.height) {
+        res.status(400).send({error: 'malformatted parameters: height missing'});
+        return
+    }
+    if (isNaN(Number(req.query.height))) {
+        res.status(400).send({error: 'malformatted parameters: height must be a number'});
+        return
+    }
+
     const {weight, height} = req.query;
     const bmi = calculateBmi(Number(height), Number(weight));
     res.send({

@@ -40,8 +40,7 @@ export const calculateBmi = (height: number, weight: number): String => {
     }
 }
 
-
-const cliOp = () => {
+if (require.main === module) {
     try {
         const {height, weight} = parseBmiArguments(process.argv);
         console.log(calculateBmi(height, weight));
@@ -54,4 +53,4 @@ const cliOp = () => {
     }
 }
 
-export default cliOp
+
